@@ -19,7 +19,7 @@
   
   function getTimestampFromDate(dt, type) {
     var ts = Date.parse(dt);
-    document.getElementById('outputTimestampUnix' + type).innerHTML = ts/1000;
+    document.getElementById('outputTimestampUnix' + type).innerHTML = parseInt(ts/1000);
     document.getElementById('outputTimestampJava' + type).innerHTML = ts;
   }
   
