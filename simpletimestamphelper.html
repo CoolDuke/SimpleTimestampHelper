@@ -1,0 +1,150 @@
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+<title>Simple Timestamp Helper</title>
+<script>
+<!--
+  function getDateFromTimestamp(ts) {
+    var date = 0;
+    
+    if(ts > 99999999999) {
+      date = new Date(parseInt(ts));
+    } else {
+      date = new Date(parseInt(ts * 1000));
+    }
+    
+    document.getElementById('outputDate').innerHTML = date.toString();
+  }
+  
+  function getTimestampFromDate(dt, type) {
+    var ts = Date.parse(dt);
+    document.getElementById('outputTimestampUnix' + type).innerHTML = ts/1000;
+    document.getElementById('outputTimestampJava' + type).innerHTML = ts;
+  }
+-->
+</script>
+<style>
+<!--
+  body {
+    font-family:sans-serif;
+    font-size:10pt;
+  }
+ 
+  div.outer_box {
+    padding:0px;
+    margin:5px 5px 15px 5px;
+    background-color:#c9d8dc;
+    width:400px;
+  }
+
+  div.inner_box {
+    padding-left:5px;
+    padding-bottom:5px;
+    margin:0px;
+  }
+  
+  h1 {
+    color:#d9e8ec;
+    background-color:#1b4654;
+    padding:4px;
+    margin:0px;
+    font-size:12pt;
+    font-weight:bold;
+  }
+
+  p.description {
+    margin:2px 0px 2px 0px;
+  }
+  
+  .padding_top {
+    padding-top:10px;
+  }
+  .curved_borders_top { 
+    border-top-right-radius: 10px 10px;
+    border-top-left-radius: 10px 10px;
+  }
+  .curved_borders_bottom { 
+    border-bottom-right-radius: 10px 10px;
+    border-bottom-left-radius: 10px 10px;
+  }
+-->
+</style>
+</head>
+<body>
+  <div class="outer_box curved_borders_top curved_borders_bottom">
+    <h1 class="curved_borders_top">Current Date</h1>
+    <div class="inner_box">
+      <table>
+        <tr><td colspan="2"><p class="description">Date Formats:</p></td></tr>
+        <tr><td>String: </td>       <td id="nowString"></td></tr>
+        <tr><td>Locale String: </td><td id="nowLocaleString"></td></tr>
+        <tr><td>UTC String: </td>   <td id="nowUTCString"></td></tr>
+        <tr><td>JSON: </td>         <td id="nowJSON"></td></tr>
+
+        <tr><td colspan="2"><p class="description padding_top">Timestamps:</p></td></tr>
+        <tr><td>Unix: </td><td id="nowTimestampUnix"></td></tr>
+        <tr><td>Java: </td><td id="nowTimestampJava"></td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="outer_box curved_borders_top curved_borders_bottom">
+    <h1 class="curved_borders_top">Timestamp to Date</h1>
+    <div class="inner_box">
+      <p class="description">Paste or type a timestamp here:</p>
+      <form>
+        <input id="ts" type="number" pattern="\d+" oninput="getDateFromTimestamp(this.value);" onpaste="getDateFromTimestamp(this.value);">
+        <input type="reset">
+      </form>
+      <p class="description">Date: <span id="outputDate">&nbsp;</span></p>
+    </div>
+  </div>
+
+  <div class="outer_box curved_borders_top curved_borders_bottom">
+    <h1 class="curved_borders_top">Date to Timestamp by Paste</h1>
+    <div class="inner_box">
+      <p class="description">Paste or type a date string here:</p>
+      <form>
+        <input id="dt_paste" type="text" oninput="getTimestampFromDate(this.value, 'Paste');" onpaste="getTimestampFromDate(this.value, 'Paste');">
+        <input type="reset">
+      </form>
+      <table>
+        <tr><td>Unix Timestamp: </td><td><span id="outputTimestampUnixPaste"></span></td></tr>
+        <tr><td>Java Timestamp: </td><td><span id="outputTimestampJavaPaste"></span></td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="outer_box curved_borders_top curved_borders_bottom">
+    <h1 class="curved_borders_top">Date to Timestamp by Selection</h1>
+    <div class="inner_box">
+      <p class="description">Set a date here:</p>
+      <form>
+        <input id="dt_selection" type="datetime-local" oninput="getTimestampFromDate(this.value, 'Selection');" onpaste="getTimestampFromDate(this.value, 'Selection');">
+      </form>
+      <table>
+        <tr><td>Unix Timestamp: </td><td><span id="outputTimestampUnixSelection"></span></td></tr>
+        <tr><td>Java Timestamp: </td><td><span id="outputTimestampJavaSelection"></span></td></tr>
+      </table>
+    </div>
+  </div>
+<script>
+<!--
+  //set current dates
+  document.getElementById('nowString').innerHTML =        new Date().toString();
+  document.getElementById('nowLocaleString').innerHTML =  new Date().toLocaleString();
+  document.getElementById('nowUTCString').innerHTML =     new Date().toUTCString();
+  document.getElementById('nowJSON').innerHTML =          new Date().toJSON();
+
+  document.getElementById('nowTimestampUnix').innerHTML = parseInt(new Date().getTime()/1000);
+  document.getElementById('nowTimestampJava').innerHTML = new Date().getTime();
+
+  //set intial date in datetime picker
+  var currentDate = new Date().toJSON().replace(/\..+/,'');
+  document.getElementById('dt_selection').value = currentDate;
+  getTimestampFromDate(currentDate, 'Selection');
+-->
+</script>
+</body>
+</html>
