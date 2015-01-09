@@ -22,6 +22,22 @@
     document.getElementById('outputTimestampUnix' + type).innerHTML = ts/1000;
     document.getElementById('outputTimestampJava' + type).innerHTML = ts;
   }
+  
+  window.onload = function(e) {
+    //set current dates
+    document.getElementById('nowString').innerHTML =        new Date().toString();
+    document.getElementById('nowLocaleString').innerHTML =  new Date().toLocaleString();
+    document.getElementById('nowUTCString').innerHTML =     new Date().toUTCString();
+    document.getElementById('nowJSON').innerHTML =          new Date().toJSON();
+
+    document.getElementById('nowTimestampUnix').innerHTML = parseInt(new Date().getTime()/1000);
+    document.getElementById('nowTimestampJava').innerHTML = new Date().getTime();
+
+    //set intial date in datetime picker
+    var currentDate = new Date().toJSON().replace(/\..+/,'');
+    document.getElementById('dt_selection').value = currentDate;
+    getTimestampFromDate(currentDate, 'Selection');
+  }
 -->
 </script>
 <style>
@@ -129,22 +145,5 @@
       </table>
     </div>
   </div>
-<script>
-<!--
-  //set current dates
-  document.getElementById('nowString').innerHTML =        new Date().toString();
-  document.getElementById('nowLocaleString').innerHTML =  new Date().toLocaleString();
-  document.getElementById('nowUTCString').innerHTML =     new Date().toUTCString();
-  document.getElementById('nowJSON').innerHTML =          new Date().toJSON();
-
-  document.getElementById('nowTimestampUnix').innerHTML = parseInt(new Date().getTime()/1000);
-  document.getElementById('nowTimestampJava').innerHTML = new Date().getTime();
-
-  //set intial date in datetime picker
-  var currentDate = new Date().toJSON().replace(/\..+/,'');
-  document.getElementById('dt_selection').value = currentDate;
-  getTimestampFromDate(currentDate, 'Selection');
--->
-</script>
 </body>
 </html>
